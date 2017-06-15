@@ -11,10 +11,10 @@ Base image - ubuntu:latest
 
 #### App list
 
-* Oracle Java jdk-8u121
+* Oracle Java jdk-8u131
 * Android Compile SDK 25
 * Android Build Tools 25.0.2
-* Android SDK Tools 25.2.4
+* Android SDK Tools 25.2.3
 * git
 * jq
 * zipalign

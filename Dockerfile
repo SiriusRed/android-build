@@ -1,10 +1,10 @@
-# DESCRIPTION:    Oracle Java jdk-8u121, Android Compile SDK 25, Android Build Tools 25.0.2, Android SDK Tools 25.2.4 
+# DESCRIPTION:    Oracle Java jdk-8u131, Android Compile SDK 25, Android Build Tools 25.0.2, Android SDK Tools 25.2.3
 # SOURCE:         https://github.com/SiriusRed/android-build
 
 FROM ubuntu:latest
 
-ENV JDK_ARCHIVE_NAME=jdk-8u121-linux-x64.tar.gz
-ENV JDK_ARCHIVE_URL=http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/$JDK_ARCHIVE_NAME
+ENV JDK_ARCHIVE_NAME=jdk-8u131-linux-x64.tar.gz
+ENV JDK_ARCHIVE_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz 
 ENV ANDROID_COMPILE_SDK=25
 ENV ANDROID_BUILD_TOOLS=25.0.2
 ENV ANDROID_SDK_TOOLS=25.2.3
@@ -29,13 +29,15 @@ RUN cd /tmp && \
 
 RUN wget  --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/tools_r${ANDROID_SDK_TOOLS}-linux.zip &&\
     unzip android-sdk.zip -d android-sdk-linux/ &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter android-${ANDROID_COMPILE_SDK} &&\ 
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter build-tools-${ANDROID_BUILD_TOOLS} &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter addon-google_apis_x86-google-${ANDROID_COMPILE_SDK} &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-${ANDROID_COMPILE_SDK} &&\
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-support &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter android-${ANDROID_COMPILE_SDK} &&\ 
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter platform-tools &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter build-tools-${ANDROID_BUILD_TOOLS} &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter addon-google_apis_x86-google-${ANDROID_COMPILE_SDK} &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-${ANDROID_COMPILE_SDK} &&\
+    echo y | $ANDROID_HOME/tools/android --silent update sdk --no-ui --all --filter extra-android-support &&\
+    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" &&\
     chmod +x gradlew
+
